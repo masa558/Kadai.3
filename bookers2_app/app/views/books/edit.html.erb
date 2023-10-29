@@ -1,25 +1,58 @@
-<h1>Editing Book</h1>
-<% if @book.errors.any? %>
-  <%= @book.errors.count %>errors prohibited this obj from being saved:
-  <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
+<!DOCTYPE html>
+<html class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+  <body>
+    <main>
+      <p id="notice"></p>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+            <h1>Editing Book</h1>
+            <div class="error_explanation">
+              <% if @book.errors.any? %>
+                <h3>
+                  <%= @book.errors.count %> errors prohibited this obj from being saved:
+                </h3>
+                <ul>
+                  <% @book.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+            <%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
+              <div class="form-group">
+                <div class="field_with_errors">
+                  <label for="book_title">Title</label>
+                </div>
+                <div class="field_with_errors">
+                  <%= f.text_field :title, class:"form-control book_title" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="book_opinion">Opinion</label>
+                <div class="field_with_errors">
+                  <%= f.text_area :body, class:"form-control book_title" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <%= f.submit 'Update Book', class:"btn btn-success" %>
+              </div>
+            <% end %>
+            <span>
+              <%= link_to "Show", book_path(@book.id) %>
+            </span>
+            |
+            <span>
+              <%= link_to "Back", books_path %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
 
-<%= form_with model: @book, url: book_path(@book.id), method: :patch do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_area :body %>
-  <%= f.submit 'Update Book' %>
-<% end %>
 
-<span>
-  <%= link_to "Show", book_path(@book.id) %>
-</span>
-|
-<span>
-  <%= link_to "Back", books_path %>
-</span>
+
+
+
